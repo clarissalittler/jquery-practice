@@ -52,3 +52,60 @@ and just for kicks let's use letters rather than numbers to label the entries
       list-style-type: lower-alpha;
   }
 #+END_SRC
+
+** A Color Grid
+   So now we're going to do an odd little page that's going to be a 9x9 table with different colors in the different cells, with the colors changing on each click.
+
+   The first thing we do is include a little HTML file that has a table and little else
+
+   #+BEGIN_SRC html :exports code :tangle ColorGrid.html
+     <!DOCTYPE html>
+     <html>
+       <head>
+         <link rel="stylesheet" type="text/css" href="ColorGrid.css">
+         <script type='text/javascript' src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+         <script type='text/javascript' src="ColorGrid.js"></script>
+       </head>
+       <body>
+         <table id="ourtable">
+         </table>
+       </body>
+     </html>
+   #+END_SRC
+
+   What about the table rows and cells? Well, we're actually going to generate those /programmatically/ so that we're not individually making a large number of items. We're also going to attach the event handlers to the individual cells after we make them.
+
+   This has more or less all the same elements we've seen before, except that we've introduced using ~$(this)~ in order to grab the appropriate DOM element for the scope of our function call. JQuery, under the hood, figures out what ~$(this)~ should be. 
+
+#+BEGIN_SRC js :exports code :tangle ColorGrid.js
+  function clickHandler() {
+      $(this).toggleClass("clicked");
+  }
+
+  $(document).ready( function () {
+      var table = $("#ourtable");
+      for(var row = 0; row < 3; row++) {
+          var tr = $("<tr></tr>");
+          for(var col = 0; col <3; col++) {
+              var td = $("<td></td>");
+              td.on("click", clickHandler);
+              tr.append(td);
+          }
+          table.append(tr);
+      }
+  });
+#+END_SRC
+
+   And we're also going to have our css file that has the classes we need as well. The default color is going to be black and, when clicked, the cell will change to be blue.
+
+#+BEGIN_SRC css :exports code :tangle ColorGrid.css
+  td {
+      background-color: black;
+      width: 50px;
+      height: 50px;
+  }
+
+  td.clicked {
+      background-color: blue;
+  }
+#+END_SRC
