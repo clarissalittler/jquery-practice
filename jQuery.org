@@ -1,10 +1,12 @@
 #+OPTIONS: toc:nil
 * Learning jQuery
 In this file we'll be building up a number of examples of building dynamic websites with jQuery. There'll be the typical todo-list and the ilk, but maybe some other things meant to at least be slightly more interesting. These are originally my own notes for getting more familiar with all of this, adapted into a format that maybe-just-maybe will be helpful to others. 
+
+Disclaimer: I don't claim that any of these examples will be particularly perfect idioms, and for now there might be a lot of my own idiosyncrasies.
 ** Obligatory Todos
 We start with the standard and obligatory example of a todo list. We'll have some minimal styling and hopefully everything will look nice. 
 
-Our initial HTML file is going to be pretty simple
+Our initial HTML file is going to be pretty simple: we're going to have a text field and a button to start, and when we enter text into the field and click the button then what we entered will be pushed into an ordered list beneath the button and text field. 
 
 #+BEGIN_SRC html :exports code :tangle todo.html
   <!DOCTYPE html>
@@ -24,7 +26,14 @@ Our initial HTML file is going to be pretty simple
   </html>
 #+END_SRC
 
-Now we have only a single handler in our 
+Now we have only a single handler in our code, but it's going to be the thing that takes the data from the input and pushes it into the ordered list. The important concepts in this little script are 
+
+   + we need to use our ~$(document).ready(...)~ handler to make sure that we only try to attach the handler after the DOM is loaded
+   + we grab everything by id (e.g. ~$("#adder")~) to be as exact as possible, though we could have used more generic traversals since there's only /one/ button, /one/ input, /one/ list
+   + we use ~val()~ to grab the text and ~val("...")~ to set the input text back to the empty string at the end
+   + we add an item to the end of the ordered list with ~.append~
+   + we turn the textual html into a real DOM element that we can insert using ~$(...)~
+   + we listen for the ~click~ event on the button
 
 #+BEGIN_SRC js :exports code :tangle todo.js
   $(document).ready(function () {
