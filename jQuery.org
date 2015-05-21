@@ -1,0 +1,45 @@
+#+OPTIONS: toc:nil
+* Learning jQuery
+In this file we'll be building up a number of examples of building dynamic websites with jQuery. There'll be the typical todo-list and the ilk, but maybe some other things meant to at least be slightly more interesting. These are originally my own notes for getting more familiar with all of this, adapted into a format that maybe-just-maybe will be helpful to others. 
+** Obligatory Todos
+We start with the standard and obligatory example of a todo list. We'll have some minimal styling and hopefully everything will look nice. 
+
+Our initial HTML file is going to be pretty simple
+
+#+BEGIN_SRC html :exports code :tangle todo.html
+  <!DOCTYPE html>
+  <html>
+    <head>    
+      <link rel="stylesheet" type="text/css" href="todo.css">
+      <script type='text/javascript' src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+      <script type='text/javascript' src="todo.js"></script>
+    </head>
+    <body>
+      <input id="todoinput" placeholder="Add an item" type="text">
+      <button id="adder">Add an item</button>
+      <ol id="todool">
+        
+      </ol>
+    </body>
+  </html>
+#+END_SRC
+
+Now we have only a single handler in our 
+
+#+BEGIN_SRC js :exports code :tangle todo.js
+  $(document).ready(function () {
+      $("#adder").on("click", function () {
+          var el = $("<li>You added: " + $("#todoinput").val() + "</li>");
+          $("#todool").append(el);
+          $("#todoinput").val("");
+      });
+  });
+#+END_SRC
+
+and just for kicks let's use letters rather than numbers to label the entries
+
+#+BEGIN_SRC css :exports code :tangle todo.css
+  ol {
+      list-style-type: lower-alpha;
+  }
+#+END_SRC
