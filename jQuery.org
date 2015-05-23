@@ -109,3 +109,5 @@ and just for kicks let's use letters rather than numbers to label the entries
       background-color: blue;
   }
 #+END_SRC
+** jQuery, Ajax, and You
+   In this section, we'll add in a small server, and then show how to use actually use the jQuery Ajax functions to communicate with the server in a fairly convenient way. We'll also include a few small examples related to web sockets just so we can explore yet another, even easier, way to communicate between client and server. 
